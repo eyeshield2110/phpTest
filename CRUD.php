@@ -100,21 +100,44 @@ if ($mysqli->connect_errno) {
             echo "</li>";
         }
         echo "</ol>";
-
-
     }
     ?>
 </div>
 <div>
     <table style="border:1px">
-        <thead>Result of query</thead>
-        <tr>
+        <caption>Result of query (Table)</caption>
+        <?php
 
-        </tr>
+        if (count($_GET) > 0) {
+            if ($select_input == "*") {
+                $query = 'SELECT * FROM person';
+                $result = $mysqli->query($query);
+            } else {
+                $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
+                $result = $mysqli->query($query);
+            }
+            echo "<thead><tr>";
+            foreach ($result[0] as $key => $value) {
+                echo "<th>";
+                echo "$key";
+                echo "</th>";
+            }
+            echo "</tr></thead>";
+
+            echo "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                foreach ($row as $key => $value) {
+                    echo "$key: $value\t";
+                }
+                echo "</tr>";
+            }
+            echo "</tbody>";
+        }
+
+        ?>
     </table>
 </div>
-
-
 
 
 <script>
