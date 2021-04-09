@@ -82,6 +82,7 @@ if ($mysqli->connect_errno) {
 <div id="display-query-result">
     <?php
     echo "\n";
+    $rows_in_result = [];
     if (count($_GET) > 0) {
         if ($select_input == "*") {
             $query = 'SELECT * FROM person';
@@ -93,6 +94,7 @@ if ($mysqli->connect_errno) {
         echo "Results: ";
         echo "<ol>";
         while ($row = $result->fetch_assoc()) {
+            $rows_in_result[] = $row;
             echo "<li>";
             foreach ($row as $key => $value) {
                 echo "$key: $value\t";
@@ -108,16 +110,9 @@ if ($mysqli->connect_errno) {
         <caption>Result of query (Table)</caption>
         <?php
 
-        if (count($_GET) > 0) {
-            if ($select_input == "*") {
-                $query = 'SELECT * FROM person';
-                $result = $mysqli->query($query);
-            } else {
-                $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
-                $result = $mysqli->query($query);
-            }
+        if (count($rows_in_result) > 0) {
             echo "<thead><tr>";
-            foreach ($result[0] as $key => $value) {
+            foreach ($rows_in_result[0] as $key => $value) {
                 echo "<th>";
                 echo "$key";
                 echo "</th>";
@@ -125,7 +120,7 @@ if ($mysqli->connect_errno) {
             echo "</tr></thead>";
 
             echo "<tbody>";
-            while ($row = $result->fetch_assoc()) {
+            foreach ($rows_in_result as $row) {
                 echo "<tr>";
                 foreach ($row as $key => $value) {
                     echo "$key: $value\t";
