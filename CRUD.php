@@ -12,7 +12,7 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     exit();
 } else {
-    echo "Successful connection to db!" . "<br>";
+    echo "<h1>Search page (successful connection to db)</h1>" . "<br>";
 }
 ?>
 
@@ -60,7 +60,7 @@ if ($mysqli->connect_errno) {
             $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
             $result = $mysqli->query($query);
         }
-        echo "<h1>Results (list)</h1>";
+        echo "<h3>Results (list)</h3>";
         echo "<ol>";
         while ($row = $result->fetch_assoc()) {
             $rows_in_result[] = $row;
@@ -77,7 +77,7 @@ if ($mysqli->connect_errno) {
 <div>
     <table>
         <caption>
-            <h1>Result of query (Table)</h1>
+            <h3>Result of query (Table)</h3>
         </caption>
         <?php
 
