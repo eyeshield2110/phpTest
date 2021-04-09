@@ -60,7 +60,7 @@ if ($mysqli->connect_errno) {
             $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
             $result = $mysqli->query($query);
         }
-        echo "Results: ";
+        echo "<h1>Results (list)</h1>";
         echo "<ol>";
         while ($row = $result->fetch_assoc()) {
             $rows_in_result[] = $row;
@@ -76,7 +76,9 @@ if ($mysqli->connect_errno) {
 </div>
 <div>
     <table>
-        <caption>Result of query (Table)</caption>
+        <caption>
+            <h1>Result of query (Table)</h1>
+        </caption>
         <?php
 
         if (count($rows_in_result) > 0) {
