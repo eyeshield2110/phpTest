@@ -29,14 +29,26 @@ if ($result->num_rows > 0) {
 }
 $mysqli->close();
 
-
 */
+
 ?>
 
+<?php
+$mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
 
-<form id="search-form" action="#" method="get">
+// Check connection
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    exit();
+} else {
+    echo "Successful connection to db!" . "<br>";
+}
+?>
+
+<form id="search-form" action="CRUD.php" method="get">
     <input type="text" id="search-input" name="searchInput" placeholder="Search by..." required>
     <select name="searchType" id="search-type" onchange="changeInput()">
+        <option value="" selected disabled>Select a search option</option>
         <option value="first_name">First name</option>
         <option value="last_name">Last name</option>
         <option value="dob">Date of birth</option>
@@ -49,8 +61,24 @@ $mysqli->close();
         <input type="submit">
     </div>
 
-
 </form>
+
+<div id="display-request-params">
+    <ul>
+        <?php
+        $request_param = $_GET['searchInput'];
+        if ($request_param)
+            echo "<li>$request_param</li>";
+        ?>
+    </ul>
+</div>
+<div id="display-query-result">
+    <table style="border:1px">
+
+    </table>
+</div>
+
+
 <script>
     const changeInput = () => {
         let search_type = document.getElementById('search-type')
@@ -88,4 +116,7 @@ $mysqli->close();
 
 </script>
 
+<?php
+$mysqli->close();
+?>
 
