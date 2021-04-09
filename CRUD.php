@@ -1,4 +1,5 @@
 <?php
+/*
 $mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
 
 // Check connection
@@ -27,11 +28,14 @@ if ($result->num_rows > 0) {
     echo "Zero results";
 }
 $mysqli->close();
+
+
+*/
 ?>
+
 
 <form id="search-form" action="#" method="get">
     <input type="text" id="search-input" name="searchInput" placeholder="Search by..." required>
-    <input type="">
     <select name="searchType" id="search-type" onchange="changeInput()">
         <option value="first_name">First name</option>
         <option value="last_name">Last name</option>
@@ -39,38 +43,45 @@ $mysqli->close();
         <option value="telephone">Telephone</option>
         <option value="email">Email</option>
         <option value="postal_code">Postal code</option>
+        <option value="*">All</option>
     </select>
-    <input type="submit">
+    <div>
+        <input type="submit">
+    </div>
+
 
 </form>
 <script>
     const changeInput = () => {
         let search_type = document.getElementById('search-type')
         let input = document.getElementById('search-input')
-        switch (search_type) {
+        switch (search_type.value) {
             case 'first_name':
-                input.placeholder = 'Search by first name...'
+                input.placeholder = 'Search by first name'
                 input.type = 'text'
                 break;
             case 'last_name':
-                input.placeholder = 'Search by last name...'
+                input.placeholder = 'Search by last name'
                 input.type = 'text'
                 break;
             case 'dob':
-                input.placeholder = 'Search by date of birth...'
-                input.type = 'date'
+                input.placeholder = 'Search by date of birth'
+                input.setAttribute('type', 'date')
                 break;
             case 'telephone':
-                input.placeholder = 'Search by phone number...'
+                input.placeholder = 'Search by telephone'
                 input.type = 'tel'
                 break;
             case 'email':
+                input.placeholder = 'Search by email'
                 input.type = 'email'
                 break;
             case 'postal_code':
+                input.placeholder = 'Search postal code'
                 input.type = 'text'
                 break;
             default:
+                input.placeholder = 'Show all'
                 input.type = 'text'
         }
     }
