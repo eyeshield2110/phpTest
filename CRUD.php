@@ -34,6 +34,7 @@ $mysqli->close();
 ?>
 
 <?php
+
 $mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
 
 // Check connection
@@ -43,10 +44,11 @@ if ($mysqli->connect_errno) {
 } else {
     echo "Successful connection to db!" . "<br>";
 }
+
 ?>
 
 <form id="search-form" action="CRUD.php" method="get">
-    <input type="text" id="search-input" name="searchInput" placeholder="Search by..." required>
+    <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
     <select name="searchType" id="search-type" onchange="changeInput()">
         <option value="" selected disabled>Select a search option</option>
         <option value="first_name">First name</option>
@@ -64,17 +66,45 @@ if ($mysqli->connect_errno) {
 </form>
 
 <div id="display-request-params">
-    <ul>
+    <label for="request-list">Search parameters</label>
+    <ul id="request-list">
         <?php
-        $request_param = $_GET['searchInput'];
-        if ($request_param)
-            echo "<li>$request_param</li>";
+        $where_input = $_GET['searchInput'];
+        $select_input = $_GET['searchType'];
+
+        if (count($_GET) > 0) {
+            echo "<li>WHERE = " . $where_input . "</li>";
+            echo "<li>SELECT = " . $select_input . "</li>";
+        }
         ?>
     </ul>
 </div>
 <div id="display-query-result">
-    <table style="border:1px">
+    <?php
+    if (count($_GET) > 0) {
+        if ($select_input == "*") {
+            $query = 'SELECT * FROM person';
+            $result = $mysqli->query($query);
+        } else {
+            $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
+            $result = $mysqli->query($query);
+        }
+        echo "Results: ";
+        while ($row = $result->fetch_assoc()) {
+            foreach ($row as $key => $value) {
+                echo "$key: $value\t";
+            }
+        }
 
+
+    }
+    ?>
+    <table style="border:1px">
+        <thead>Result of query</thead>
+
+        <tr>
+
+        </tr>
     </table>
 </div>
 
@@ -85,30 +115,37 @@ if ($mysqli->connect_errno) {
         let input = document.getElementById('search-input')
         switch (search_type.value) {
             case 'first_name':
+                input.disabled = false
                 input.placeholder = 'Search by first name'
                 input.type = 'text'
                 break;
             case 'last_name':
+                input.disabled = false
                 input.placeholder = 'Search by last name'
                 input.type = 'text'
                 break;
             case 'dob':
+                input.disabled = false
                 input.placeholder = 'Search by date of birth'
                 input.setAttribute('type', 'date')
                 break;
             case 'telephone':
+                input.disabled = false
                 input.placeholder = 'Search by telephone'
                 input.type = 'tel'
                 break;
             case 'email':
+                input.disabled = false
                 input.placeholder = 'Search by email'
                 input.type = 'email'
                 break;
             case 'postal_code':
+                input.disabled = false
                 input.placeholder = 'Search postal code'
                 input.type = 'text'
                 break;
             default:
+                input.disabled = true
                 input.placeholder = 'Show all'
                 input.type = 'text'
         }
