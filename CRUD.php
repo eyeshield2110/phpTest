@@ -106,7 +106,7 @@ if ($mysqli->connect_errno) {
     ?>
 </div>
 <div>
-    <table style="border:1px">
+    <table style="border:solid black 1px">
         <caption>Result of query (Table)</caption>
         <?php
 
