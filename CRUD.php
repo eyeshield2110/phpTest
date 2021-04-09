@@ -1,40 +1,10 @@
-<?php
-/*
-$mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
-
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "Successful connection to db!" . "<br>";
-}
-
-// Testing queries
-// #1: Person DISPLAY
-
-$name = "Noah";
-
-$query = sprintf("SELECT id, name FROM demo WHERE name='%s'", $name);
-$result = $mysqli->query($query);
-
-// Check result
-if ($result->num_rows > 0) {
-// function num_rows() checks number of rows in result
-    while ($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"] . " - Name " . $row["name"] . "<br>";
+<style>
+    table, td, th, tr {
+        border: solid black 1px;
     }
-} else {
-    echo "Zero results";
-}
-$mysqli->close();
-
-*/
-
-?>
+</style>
 
 <?php
-
 $mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
 
 // Check connection
@@ -44,7 +14,6 @@ if ($mysqli->connect_errno) {
 } else {
     echo "Successful connection to db!" . "<br>";
 }
-
 ?>
 
 <form id="search-form" action="CRUD.php" method="get">
@@ -106,7 +75,7 @@ if ($mysqli->connect_errno) {
     ?>
 </div>
 <div>
-    <table style="border:solid black 1px">
+    <table>
         <caption>Result of query (Table)</caption>
         <?php
 
