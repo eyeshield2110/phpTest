@@ -75,10 +75,8 @@ if ($mysqli->connect_errno) {
     ?>
 </div>
 <div>
+    <h3>Result of query (Table)</h3>
     <table>
-        <caption>
-            <h3>Result of query (Table)</h3>
-        </caption>
         <?php
 
         if (count($rows_in_result) > 0) {
