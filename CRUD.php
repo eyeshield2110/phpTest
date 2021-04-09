@@ -91,24 +91,30 @@ if ($mysqli->connect_errno) {
             $result = $mysqli->query($query);
         }
         echo "Results: ";
+        echo "<ol>";
         while ($row = $result->fetch_assoc()) {
+            echo "<li>";
             foreach ($row as $key => $value) {
                 echo "$key: $value\t";
             }
+            echo "</li>";
         }
-        echo "\n";
+        echo "</ol>";
 
 
     }
     ?>
+</div>
+<div>
     <table style="border:1px">
         <thead>Result of query</thead>
-
         <tr>
 
         </tr>
     </table>
 </div>
+
+
 
 
 <script>
