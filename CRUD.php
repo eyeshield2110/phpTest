@@ -123,7 +123,7 @@ if ($mysqli->connect_errno) {
             foreach ($rows_in_result as $row) {
                 echo "<tr>";
                 foreach ($row as $key => $value) {
-                    echo "$key: $value\t";
+                    echo "<td>" . $value . "</td>";
                 }
                 echo "</tr>";
             }
