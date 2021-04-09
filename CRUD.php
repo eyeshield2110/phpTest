@@ -2,6 +2,10 @@
     table, td, th, tr {
         border: solid black 1px;
     }
+    div {
+        padding: 5px;
+        margin: 5px;
+    }
 </style>
 
 <?php
@@ -17,17 +21,19 @@ if ($mysqli->connect_errno) {
 ?>
 
 <form id="search-form" action="CRUD.php" method="get">
-    <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
-    <select name="searchType" id="search-type" onchange="changeInput()">
-        <option value="" selected disabled>Select a search option</option>
-        <option value="first_name">First name</option>
-        <option value="last_name">Last name</option>
-        <option value="dob">Date of birth</option>
-        <option value="telephone">Telephone</option>
-        <option value="email">Email</option>
-        <option value="postal_code">Postal code</option>
-        <option value="*">All</option>
-    </select>
+    <div>
+        <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
+        <select name="searchType" id="search-type" onchange="changeInput()">
+            <option value="" selected disabled>Select a search option</option>
+            <option value="first_name">First name</option>
+            <option value="last_name">Last name</option>
+            <option value="dob">Date of birth</option>
+            <option value="telephone">Telephone</option>
+            <option value="email">Email</option>
+            <option value="postal_code">Postal code</option>
+            <option value="*">All</option>
+        </select>
+    </div>
     <div>
         <input type="submit">
     </div>
