@@ -81,6 +81,7 @@ if ($mysqli->connect_errno) {
 </div>
 <div id="display-query-result">
     <?php
+    echo "\n";
     if (count($_GET) > 0) {
         if ($select_input == "*") {
             $query = 'SELECT * FROM person';
@@ -95,6 +96,7 @@ if ($mysqli->connect_errno) {
                 echo "$key: $value\t";
             }
         }
+        echo "\n";
 
 
     }
