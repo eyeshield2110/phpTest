@@ -29,7 +29,7 @@ while ($row = $regions_result->fetch_assoc()) {
 }
 ?>
 
-<form>
+<form action="post_page.php" method="post">
     <div>
         <input type="text" name="city" id="city_input" placeholder="City">
     </div>
@@ -46,6 +46,7 @@ while ($row = $regions_result->fetch_assoc()) {
             ?>
         </select>
     </div>
+    <input type="hidden" name="table" value="city">
     <div>
         <input type="submit">
     </div>

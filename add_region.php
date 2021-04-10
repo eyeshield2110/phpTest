@@ -29,12 +29,12 @@ while ($row = $provinces_result->fetch_assoc()) {
     $provinces[] = $row;
 }
 ?>
-<form>
+<form action="post_page.php" method="post">
     <div>
         <input type="text" name="region" placeholder="Add a region">
     </div>
     <div>
-        <select name="region" id="region" required>
+        <select name="province" id="province" required>
             <option selected disabled value="">Select a province</option>
             <?php
             foreach ($provinces as $row) {
@@ -45,6 +45,7 @@ while ($row = $provinces_result->fetch_assoc()) {
             ?>
         </select>
     </div>
+    <input type="hidden" name="table" value="region">
     <div>
         <input type="submit">
     </div>

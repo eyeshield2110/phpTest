@@ -7,9 +7,6 @@
         padding: 5px;
         margin: 5px;
     }
-    .hidden-choice {
-        display:none;
-    }
 </style>
 <?php
 $mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
@@ -90,12 +87,22 @@ if ($mysqli->errno)
             <option value="canadian">Canadian</option>
         </select>
     </div>
+    <input type="hidden" name="table" value="person">
     <div>
-        <input type="submit">
+        <input type="submit" onclick="insert()">
     </div>
 
 </form>
 
 <?php
 include 'links_partials.php';
+?>
+
+<?php
+    if (isset($_POST)){
+        foreach($_POST as $key=>$value){
+            echo "<div>" .  $key . ": " . $value . "</div>";
+
+        }
+    }
 ?>

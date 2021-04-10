@@ -117,12 +117,17 @@ include 'links_partials.php';
             foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
             }
+            $deleteBtn = "<button onclick='deletePerson()'>Delete</button>";
             echo "<td>"
-                . sprintf("<button onclick='deletePerson()'>Delete</button>", $row['medicare'])
+                . $deleteBtn
                 . "</td>";
 
+            $editMedicare = $row['medicare'];
+            $editPage = sprintf("location.href='edit_person.php?id=%s';", $editMedicare);
+
+            $editBtn = sprintf("<button onclick=%s>Edit</button>", $editPage);
             echo "<td>"
-                . sprintf("<button onclick='editPerson()'>Edit</button>", $row['medicare'])
+                . $editBtn
                 . "</td>";
             echo "</tr>";
         }

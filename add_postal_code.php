@@ -29,12 +29,12 @@ while ($row = $cities_result->fetch_assoc()) {
     $cities[] = $row;
 }
 ?>
-<form>
+<form action="post_page.php" method="post">
     <div>
         <input type="text" name="postal_code" id="postal_code_input" placeholder="Zip code/Postal code">
     </div>
     <div id="city_div">
-        <select name="city" id="city_select">
+        <select name="city" id="city_select" required>
             <option value="" disabled selected>Select city</option>
             <!-- Fetch city from database -->
             <?php
@@ -46,6 +46,7 @@ while ($row = $cities_result->fetch_assoc()) {
             ?>
         </select>
     </div>
+    <input type="hidden" name="table" value="postalCode">
     <div>
         <input type="submit">
     </div>
