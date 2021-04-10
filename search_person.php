@@ -77,13 +77,14 @@ include 'links_partials.php';
             $result = $mysqli->query($query);
         }
         if ($result->num_rows > 0) {
-            echo "<h4>Results (list)</h4>";
+            // echo "<h4>Results (list)</h4>";
         } else {
             echo "<h4>No results</h4>";
         }
-        echo "<ol>";
+        //echo "<ol>";
         while ($row = $result->fetch_assoc()) {
             $rows_in_result[] = $row;
+            /*
             echo "<li>";
             foreach ($row as $key => $value) {
                 echo "$key: $value\t";
@@ -91,8 +92,9 @@ include 'links_partials.php';
 
             echo sprintf("<button onclick=deletePerson(`%s`)>Delete</button>", $row['medicare']);
             echo "</li>";
+            */
         }
-        echo "</ol>";
+        //echo "</ol>";
     }
     ?>
 </div>
@@ -210,19 +212,16 @@ include 'links_partials.php';
 
 <?php
 // Parse the POST request
-if (isset($_POST)) {
+if (isset($_POST['medicare'])) {
     $medicareDelete = $_POST['medicare'];
-    echo  "<h4>Successfully deleted record ". $medicareDelete . "</h4>";
     // Handling POST request to delete
- $delete = sprintf('DELETE FROM person WHERE medicare = "%s"', $medicareDelete);
- if ($mysqli->query($delete) === TRUE) {
-
- } else {
-     echo "Error: " . $delete . "<br>" . $mysqli->error;
- }
+    $delete = sprintf('DELETE FROM person WHERE medicare = "%s"', $medicareDelete);
+    if ($mysqli->query($delete) === TRUE) {
+        echo "<h4>Successfully deleted record " . $medicareDelete . "</h4>";
+    } else {
+        echo "Error: " . $delete . "<br>" . $mysqli->error;
+    }
 }
-
-
 
 
 ?>
