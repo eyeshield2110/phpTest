@@ -9,7 +9,7 @@
 </style>
 
 <?php
-$mysqli = new mysqli("uec353.encs.concordia.ca", "uec353_4", "c0NcR6iA", "uec353_4");
+$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
 
 // Check connection
 if ($mysqli->connect_errno) {
@@ -23,7 +23,7 @@ if ($mysqli->connect_errno) {
 <form id="search-form" action="CRUD.php" method="get">
     <div>
         <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
-        <select name="searchType" id="search-type" onchange="changeInput()">
+        <select required name="searchType" id="search-type" onchange="changeInput()">
             <option value="" selected disabled>Select a search option</option>
             <option value="first_name">First name</option>
             <option value="last_name">Last name</option>
@@ -39,6 +39,7 @@ if ($mysqli->connect_errno) {
     </div>
 
 </form>
+<a href="add_person.php">Add a person</a>
 
 <div id="display-request-params">
     <label for="request-list">Search parameters</label>
