@@ -75,7 +75,11 @@ include 'links_partials.php';
             $query = sprintf('SELECT * FROM person WHERE %s="%s"', $select_input, $where_input);
             $result = $mysqli->query($query);
         }
-        echo "<h3>Results (list)</h3>";
+        if ($result->num_rows > 0) {
+            echo "<h4>Results (list)</h4>";
+        } else {
+            echo "<h4>No results</h4>";
+        }
         echo "<ol>";
         while ($row = $result->fetch_assoc()) {
             $rows_in_result[] = $row;
@@ -83,6 +87,7 @@ include 'links_partials.php';
             foreach ($row as $key => $value) {
                 echo "$key: $value\t";
             }
+            echo sprintf("<button onclick='deletePerson()'>Delete id=%s</button>", $row['medicare']);
             echo "</li>";
         }
         echo "</ol>";
@@ -101,7 +106,10 @@ include 'links_partials.php';
             echo "$key";
             echo "</th>";
         }
+        echo "<th>Delete</th>";
+        echo "<th>Edit</th>";
         echo "</tr></thead>";
+
 
         echo "<tbody>";
         foreach ($rows_in_result as $row) {
@@ -109,6 +117,13 @@ include 'links_partials.php';
             foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
             }
+            echo "<td>"
+                . sprintf("<button onclick='deletePerson()'>Delete</button>", $row['medicare'])
+                . "</td>";
+
+            echo "<td>"
+                . sprintf("<button onclick='editPerson()'>Edit</button>", $row['medicare'])
+                . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";
@@ -159,6 +174,12 @@ include 'links_partials.php';
                 input.placeholder = 'Show all'
                 input.type = 'text'
         }
+    }
+
+    function deletePerson() {
+        confirm('Delete confirm?')
+    }
+    function editPerson(){
     }
 
 </script>
