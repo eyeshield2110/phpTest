@@ -14,7 +14,10 @@ if ($mysqli->connect_errno) {
 
 <?php
 if (isset($_POST)) {
-    echo "new medicare: " . $_POST['medicare'] . "\n";
+    foreach($_POST as $key=>$value){
+        echo "<div>" .  $key . ": " . $value . "</div>";
+
+    }
 }
 // try to post to database
 
@@ -33,8 +36,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = sprintf("INSERT INTO demo (medicare)
-VALUES ('%s')", $_POST['medicare']);
+$sql = sprintf("INSERT INTO demo (medicare) VALUES ('%s')", $_POST['medicare']);
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
@@ -46,4 +48,4 @@ $conn->close();
 ?>
 
 <h1>New person added!</h1>
-<a href="CRUD.php">Do not refresh the page and click here to go back </a>
+<a href="search_person.php">Do not refresh the page and click here to go back </a>

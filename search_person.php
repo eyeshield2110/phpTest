@@ -2,6 +2,7 @@
     table, td, th, tr {
         border: solid black 1px;
     }
+
     div {
         padding: 5px;
         margin: 5px;
@@ -20,7 +21,7 @@ if ($mysqli->connect_errno) {
 }
 ?>
 
-<form id="search-form" action="CRUD.php" method="get">
+<form id="search-form" action="search_person.php" method="get">
     <div>
         <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
         <select required name="searchType" id="search-type" onchange="changeInput()">
@@ -39,21 +40,28 @@ if ($mysqli->connect_errno) {
     </div>
 
 </form>
-<a href="add_person.php">Add a person</a>
+
+<?php
+include 'links_partials.php';
+?>
 
 <div id="display-request-params">
-    <label for="request-list">Search parameters</label>
-    <ul id="request-list">
-        <?php
-        $where_input = $_GET['searchInput'];
-        $select_input = $_GET['searchType'];
 
-        if (count($_GET) > 0) {
-            echo "<li>WHERE = " . $where_input . "</li>";
-            echo "<li>SELECT = " . $select_input . "</li>";
-        }
-        ?>
-    </ul>
+    <?php
+
+    $where_input = $_GET['searchInput'];
+    $select_input = $_GET['searchType'];
+
+    if (count($_GET) > 0) {
+        echo "<h4>Search parameters</h4>
+        <ul id='request-list'>";
+        echo "<li>Search by = " . $select_input . "</li>";
+        echo "<li>Value = " . $where_input . "</li>";
+
+    }
+    echo "</ul>";
+    ?>
+
 </div>
 <div id="display-query-result">
     <?php
@@ -82,32 +90,32 @@ if ($mysqli->connect_errno) {
     ?>
 </div>
 <div>
-    <h3>Result of query (Table)</h3>
-    <table>
-        <?php
 
-        if (count($rows_in_result) > 0) {
-            echo "<thead><tr>";
-            foreach ($rows_in_result[0] as $key => $value) {
-                echo "<th>";
-                echo "$key";
-                echo "</th>";
-            }
-            echo "</tr></thead>";
+    <?php
 
-            echo "<tbody>";
-            foreach ($rows_in_result as $row) {
-                echo "<tr>";
-                foreach ($row as $key => $value) {
-                    echo "<td>" . $value . "</td>";
-                }
-                echo "</tr>";
-            }
-            echo "</tbody>";
+    if (count($rows_in_result) > 0) {
+        echo "<h3>Result of query (Table)</h3><table>";
+        echo "<thead><tr>";
+        foreach ($rows_in_result[0] as $key => $value) {
+            echo "<th>";
+            echo "$key";
+            echo "</th>";
         }
+        echo "</tr></thead>";
 
-        ?>
-    </table>
+        echo "<tbody>";
+        foreach ($rows_in_result as $row) {
+            echo "<tr>";
+            foreach ($row as $key => $value) {
+                echo "<td>" . $value . "</td>";
+            }
+            echo "</tr>";
+        }
+        echo "</tbody>";
+    }
+    echo "</table>";
+    ?>
+
 </div>
 
 
