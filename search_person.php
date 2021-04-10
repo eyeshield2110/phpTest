@@ -26,6 +26,7 @@ if ($mysqli->connect_errno) {
         <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>
         <select required name="searchType" id="search-type" onchange="changeInput()">
             <option value="" selected disabled>Select a search option</option>
+            <option value="medicare">Medicare</option>
             <option value="first_name">First name</option>
             <option value="last_name">Last name</option>
             <option value="dob">Date of birth</option>
@@ -87,7 +88,8 @@ include 'links_partials.php';
             foreach ($row as $key => $value) {
                 echo "$key: $value\t";
             }
-            echo sprintf("<button onclick='deletePerson()'>Delete id=%s</button>", $row['medicare']);
+
+            echo sprintf("<button onclick=deletePerson(`%s`)>Delete</button>", $row['medicare']);
             echo "</li>";
         }
         echo "</ol>";
@@ -117,7 +119,7 @@ include 'links_partials.php';
             foreach ($row as $key => $value) {
                 echo "<td>" . $value . "</td>";
             }
-            $deleteBtn = "<button onclick='deletePerson()'>Delete</button>";
+            $deleteBtn = sprintf("<button onclick='deletePerson(`%s`)'>Delete</button>", $row['medicare']);
             echo "<td>"
                 . $deleteBtn
                 . "</td>";
@@ -144,6 +146,11 @@ include 'links_partials.php';
         let search_type = document.getElementById('search-type')
         let input = document.getElementById('search-input')
         switch (search_type.value) {
+            case 'medicare':
+                input.disabled = false
+                input.placeholder = 'Search by medicare'
+                input.type = 'text'
+                break;
             case 'first_name':
                 input.disabled = false
                 input.placeholder = 'Search by first name'
@@ -181,13 +188,45 @@ include 'links_partials.php';
         }
     }
 
-    function deletePerson() {
-        confirm('Delete confirm?')
-    }
-    function editPerson(){
+
+    function deletePerson(medicare) {
+        let confirmDelete = confirm('Confirm delete ' + medicare + ' ?')
+        if (confirmDelete) {
+            let deleteForm = document.createElement('form')
+            deleteForm.style.display = 'none'
+            deleteForm.action = 'search_person.php'
+            deleteForm.method = 'post'
+            let input = document.createElement('input')
+            input.type = 'text'
+            input.name = 'medicare'
+            input.value = medicare
+            deleteForm.appendChild(input)
+            document.body.appendChild(deleteForm)
+            deleteForm.submit()
+        }
     }
 
 </script>
+
+<?php
+// Parse the POST request
+if (isset($_POST)) {
+    $medicareDelete = $_POST['medicare'];
+    echo  "<h4>Successfully deleted record ". $medicareDelete . "</h4>";
+    // Handling POST request to delete
+ $delete = sprintf('DELETE FROM person WHERE medicare = "%s"', $medicareDelete);
+ if ($mysqli->query($delete) === TRUE) {
+
+ } else {
+     echo "Error: " . $delete . "<br>" . $mysqli->error;
+ }
+}
+
+
+
+
+?>
+
 
 <?php
 $mysqli->close();

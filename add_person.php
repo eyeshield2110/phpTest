@@ -89,20 +89,11 @@ if ($mysqli->errno)
     </div>
     <input type="hidden" name="table" value="person">
     <div>
-        <input type="submit" onclick="insert()">
+        <input type="submit">
     </div>
 
 </form>
 
 <?php
 include 'links_partials.php';
-?>
-
-<?php
-    if (isset($_POST)){
-        foreach($_POST as $key=>$value){
-            echo "<div>" .  $key . ": " . $value . "</div>";
-
-        }
-    }
 ?>
