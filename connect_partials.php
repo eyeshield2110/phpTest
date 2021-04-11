@@ -27,4 +27,5 @@ if ($mysqli->connect_errno) {
 } else {
     echo "<script>console.log('connected to mysql')</script>";
 }
+?>
 
