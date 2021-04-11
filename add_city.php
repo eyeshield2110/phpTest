@@ -9,16 +9,9 @@
     }
 </style>
 <?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
-
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Add a city</h1>" . "<br>";
-}
+include 'connect_partials.php'
 ?>
+
 <?php
 // fetch the regions
 $regions_query = 'SELECT name FROM region';
@@ -29,6 +22,7 @@ while ($row = $regions_result->fetch_assoc()) {
 }
 ?>
 
+<h3>Add a city</h3>
 <form action="post_page.php" method="post">
     <div>
         <input type="text" name="city" id="city_input" placeholder="City">

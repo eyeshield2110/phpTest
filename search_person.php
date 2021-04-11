@@ -10,17 +10,10 @@
 </style>
 
 <?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
-
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Search page (successful connection to db)</h1>" . "<br>";
-}
+include 'connect_partials.php'
 ?>
 
+<h3>Search a person</h3>
 <form id="search-form" action="search_person.php" method="get">
     <div>
         <input type="text" id="search-input" name="searchInput" placeholder="Search by..." disabled required>

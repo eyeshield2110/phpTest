@@ -8,16 +8,9 @@
         margin: 5px;
     }
 </style>
-<?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
 
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Add a postal code</h1>" . "<br>";
-}
+<?php
+include 'connect_partials.php'
 ?>
 
 <?php
@@ -29,6 +22,8 @@ while ($row = $cities_result->fetch_assoc()) {
     $cities[] = $row;
 }
 ?>
+
+<h3>Add a postal code</h3>
 <form action="post_page.php" method="post">
     <div>
         <input type="text" name="postal_code" id="postal_code_input" placeholder="Zip code/Postal code">

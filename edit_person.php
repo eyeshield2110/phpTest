@@ -8,16 +8,9 @@
         margin: 5px;
     }
 </style>
-<?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
 
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Edit a person</h1>" . "<br>";
-}
+<?php
+ include 'connect_partials.php'
 ?>
 
 <?php
@@ -60,8 +53,7 @@ if ($mysqli->errno)
     echo "Error in query/ies. ";
 ?>
 
-<!-- person form - if postal is not in db yet, add it -->
-<!-- how to handle error: if entering the wrong city for a postal code that exist for a different city? -->
+<h3>Edit a person</h3>
 <form action="post_edit.php" method="post">
     <div>
         <?php

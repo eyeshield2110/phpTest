@@ -1,16 +1,10 @@
 <?php
-$servername = "192.168.0.106";
-$username = "uec353_4";
-$password = "c0NcR6iA";
-$dbname = "test";
+include 'connect_partials.php'
+?>
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
+
+<?php
 $insert_table = $_POST['table'];
 $sql = '';
 switch($insert_table) {
@@ -18,8 +12,8 @@ switch($insert_table) {
         $sql = sprintf("INSERT INTO person 
     (medicare, dob, first_name, last_name, telephone, email, address, postal_code, citizenship)
     VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s')",
-        $_POST['medicare'], $_POST['dob'], $_POST['first_name'], $_POST['last_name'],
-        $_POST['telephone'], $_POST['email'], $_POST['address'], $_POST['postal_code'],
+        trim($_POST['medicare']), $_POST['dob'], trim($_POST['first_name']), trim($_POST['last_name']),
+        $_POST['telephone'], trim($_POST['email']), trim($_POST['address']), $_POST['postal_code'],
         $_POST['citizenship']);
         break;
     case 'healthWorker': // Review the healthWorker schema... add a facilityID + workerFacilityID?
@@ -33,15 +27,15 @@ switch($insert_table) {
         break;
     case 'region':
         $sql = sprintf("INSERT INTO region (name, province) VALUES ('%s', '%s')",
-        $_POST['region'], $_POST['province']);
+        trim($_POST['region']), $_POST['province']);
         break;
     case 'postalCode':
         $sql = sprintf("INSERT INTO postalCode (code, cityName) VALUES ('%s', '%s')",
-        $_POST['postal_code'], $_POST['city']);
+        trim($_POST['postal_code']), $_POST['city']);
         break;
     case 'city':
         $sql = sprintf("INSERT INTO city (name, regionName) VALUES ('%s', '%s')",
-        $_POST['city'], $_POST['region']);
+        trim($_POST['city']), $_POST['region']);
         break;
     default:
         echo "no valid table selected (hidden form input not configured, etc.)";
@@ -51,12 +45,12 @@ switch($insert_table) {
 
 // $sql = sprintf("INSERT INTO demo (medicare) VALUES ('%s')", $_POST['medicare']);
 
-if ($conn->query($sql) === TRUE) {
+if ($mysqli->query($sql) === TRUE) {
     echo "<h4>New record created successfully</h4>";
     echo "<a href='search_person.php'>Do not refresh the page and click here to go back </a>";
 
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . "<br>" . $mysqli->error;
 }
 
 // Display the form data
@@ -68,7 +62,7 @@ if (isset($_POST)) {
 }
 
 
-$conn->close();
+$mysqli->close();
 ?>
 
 

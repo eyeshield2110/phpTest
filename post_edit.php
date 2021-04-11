@@ -1,16 +1,8 @@
 <?php
-$servername = "192.168.0.106";
-$username = "uec353_4";
-$password = "c0NcR6iA";
-$dbname = "test";
+include 'connect_partials.php'
+?>
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+<?php
 $insert_table = $_POST['table'];
 $sql = '';
 switch ($insert_table) {
@@ -18,9 +10,9 @@ switch ($insert_table) {
         $sql = sprintf("UPDATE person SET dob='%s', first_name='%s', last_name='%s', 
                 telephone='%d', email='%s', address='%s', postal_code='%s', citizenship='%s'
                 WHERE medicare='%s'",
-            $_POST['dob'], $_POST['first_name'], $_POST['last_name'],
-            $_POST['telephone'], $_POST['email'], $_POST['address'], $_POST['postal_code'],
-            $_POST['citizenship'], $_POST['medicare']);
+            $_POST['dob'], trim($_POST['first_name']), trim($_POST['last_name']),
+            $_POST['telephone'], trim($_POST['email']), trim($_POST['address']), $_POST['postal_code'],
+            $_POST['citizenship'], trim($_POST['medicare']));
         break;
     case 'healthWorker': // Review the healthWorker schema... add a facilityID + workerFacilityID?
         $sql = sprintf("INSERT INTO healthWorker () VALUES ()");
@@ -51,12 +43,12 @@ switch ($insert_table) {
 
 // $sql = sprintf("INSERT INTO demo (medicare) VALUES ('%s')", $_POST['medicare']);
 
-if ($conn->query($sql) === TRUE) {
+if ($mysqli->query($sql) === TRUE) {
     echo "<h4>Record updated successfully</h4>";
     echo "<a href='search_person.php'>Do not refresh the page and click here to go back </a>";
 
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . "<br>" . $mysqli->error;
 }
 
 // Display the form data
@@ -69,7 +61,7 @@ if (isset($_POST)) {
 }
 
 
-$conn->close();
+$mysqli->close();
 ?>
 
 

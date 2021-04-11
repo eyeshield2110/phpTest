@@ -7,20 +7,13 @@
         padding: 5px;
         margin: 5px;
     }
-    .hidden-choice {
-        display:none;
-    }
 </style>
-<?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
 
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Add a region</h1>" . "<br>";
-}
+<?php
+include 'connect_partials.php'
+?>
+
+<?php
 // fetch the provinces and cities in the db
 $provinces_query = 'SELECT name FROM province';
 $provinces_result = $mysqli->query($provinces_query);
@@ -29,6 +22,8 @@ while ($row = $provinces_result->fetch_assoc()) {
     $provinces[] = $row;
 }
 ?>
+
+<h3>Add a region</h3>
 <form action="post_page.php" method="post">
     <div>
         <input type="text" name="region" placeholder="Add a region">

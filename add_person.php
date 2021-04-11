@@ -8,17 +8,11 @@
         margin: 5px;
     }
 </style>
-<?php
-$mysqli = new mysqli("192.168.0.106", "uec353_4", "c0NcR6iA", "test");
 
-// Check connection
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-    exit();
-} else {
-    echo "<h1>Add a person</h1>" . "<br>";
-}
+<?php
+include 'connect_partials.php'
 ?>
+
 <?php
 // fetch the postal codes
 $codes_query = 'SELECT code FROM postalCode';
@@ -39,7 +33,7 @@ while ($row = $cities_result->fetch_assoc()) {
 if ($mysqli->errno)
     echo "Error in query/ies. ";
 ?>
-
+<h3>Add a person</h3>
 <!-- person form - if postal is not in db yet, add it -->
 <!-- how to handle error: if entering the wrong city for a postal code that exist for a different city? -->
 <form action="post_page.php" method="post">
